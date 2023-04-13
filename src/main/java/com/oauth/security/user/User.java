@@ -1,6 +1,6 @@
-package com.alibou.security.user;
+package com.oauth.security.user;
 
-import com.alibou.security.token.Token;
+import com.oauth.security.token.Token;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,7 +31,7 @@ public class User implements UserDetails {
   private Integer id;
   private String firstname;
   private String lastname;
-  private String username;
+  private String nic;
   private String gender;
   private int age;
   private String email;
@@ -55,6 +55,10 @@ public class User implements UserDetails {
 
   @Override
   public String getUsername() {
+    return null;
+  }
+
+  public String getNic() {
     return email;
   }
 

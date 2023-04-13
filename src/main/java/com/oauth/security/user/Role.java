@@ -1,4 +1,4 @@
-package com.alibou.security.user;
+package com.oauth.security.user;
 
 public enum Role {
 

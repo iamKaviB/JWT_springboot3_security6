@@ -1,4 +1,4 @@
-package com.alibou.security.token;
+package com.oauth.security.token;
 
 public enum TokenType {
   BEARER

@@ -1,11 +1,9 @@
-package com.alibou.security.auth;
+package com.oauth.security.auth;
 
+import com.oauth.security.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -28,6 +26,24 @@ public class AuthenticationController {
   ) {
     System.out.println("here ");
     return ResponseEntity.ok(service.authenticate(request));
+  }
+
+  @GetMapping("/find/{nic}")
+  public ResponseEntity<RegisterRequest> findByUsername(
+          @PathVariable("nic") String nic
+  ) {
+      User user = service.findByNic(nic);
+    System.out.println(user.getNic());
+
+      RegisterRequest request = new RegisterRequest();
+      request.setFirstname(user.getFirstname());
+      request.setLastname(user.getLastname());
+      request.setEmail(user.getEmail());
+      request.setAge(user.getAge());
+      request.setGender(user.getGender());
+      request.setNic(user.getNic());
+
+      return ResponseEntity.ok(request);
   }
 
 
