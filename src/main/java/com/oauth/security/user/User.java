@@ -59,7 +59,7 @@ public class User implements UserDetails {
   }
 
   public String getNic() {
-    return email;
+    return nic;
   }
 
   @Override
