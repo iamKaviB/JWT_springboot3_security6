@@ -1,4 +1,4 @@
-package com.alibou.security.auth;
+package com.oauth.security.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class  RegisterRequest {
   private String lastname;
   private String email;
   private String password;
-  private String username;
   private String gender;
+  private String nic;
   private int age;
 }
