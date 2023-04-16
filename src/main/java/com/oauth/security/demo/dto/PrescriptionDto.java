@@ -12,6 +12,7 @@ import java.util.List;
 public class PrescriptionDto {
 
     private String auth;
+    private String nic;
     private String disease;
     private String type ="PRES";
     private List<PresDetailDto> list;

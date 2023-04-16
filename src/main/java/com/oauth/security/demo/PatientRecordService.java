@@ -28,7 +28,7 @@ public class PatientRecordService {
         PatientRecord record = new PatientRecord();
         Token token = tokenRepository.findByToken(prescriptionDto.getAuth()).orElseThrow(()-> new RuntimeException("token not found"));
 
-        record.setUsername(token.getUser().getNic());
+        record.setUsername(prescriptionDto.getNic());
         record .setType(prescriptionDto.getType());
         record .setDisease(prescriptionDto.getDisease());
         record .setDateTime(String.valueOf(LocalDateTime.now()));
