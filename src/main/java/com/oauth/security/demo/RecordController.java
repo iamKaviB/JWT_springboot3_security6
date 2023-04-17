@@ -33,9 +33,19 @@ public class RecordController {
     return ResponseEntity.ok(service.getPrescriptions());
   }
 
+  @GetMapping("/pres/{nic}")
+  private ResponseEntity<List<PrescriptionDto>> getPrescriptionsByNic(@PathVariable("nic") String nic){
+    return ResponseEntity.ok(service.getPrescriptionsByNic(nic));
+  }
+
   @GetMapping("/ecg")
   private ResponseEntity<List<EcgDto>> getEcg(){
     return ResponseEntity.ok(service.getEcg());
+  }
+
+  @GetMapping("/ecg/{nic}")
+  private ResponseEntity<List<EcgDto>> getEcgByNic(@PathVariable("nic") String nic){
+    return ResponseEntity.ok(service.getEcgByUsername(nic));
   }
 
 }
