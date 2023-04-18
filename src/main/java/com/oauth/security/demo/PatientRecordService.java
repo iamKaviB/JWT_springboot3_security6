@@ -21,7 +21,6 @@ import java.util.List;
 public class PatientRecordService {
 
     private final RecordRepository recordRepository;
-    private final JwtService tokenService;
     private final TokenRepository tokenRepository;
     private final  UserRepository userRepository;
 
