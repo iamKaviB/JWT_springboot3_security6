@@ -6,6 +6,8 @@ import com.oauth.security.demo.dto.PresDetailDto;
 import com.oauth.security.demo.dto.PrescriptionDto;
 import com.oauth.security.token.Token;
 import com.oauth.security.token.TokenRepository;
+import com.oauth.security.user.Role;
+import com.oauth.security.user.User;
 import com.oauth.security.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,29 @@ public class PatientRecordService {
     private final RecordRepository recordRepository;
     private final JwtService tokenService;
     private final TokenRepository tokenRepository;
+    private final  UserRepository userRepository;
 
 
     public PatientRecord savePrescription(PrescriptionDto prescriptionDto){
 
+        boolean us =  userRepository.existsByNic(prescriptionDto.getNic());
+        if(!us)
+        {
+            User user = new User();
+            user.setFirstname(prescriptionDto.getFirstname());
+            user.setLastname(prescriptionDto.getLastname());
+            user.setAge(prescriptionDto.getAge());
+            user.setNic(prescriptionDto.getNic());
+            user.setGender(prescriptionDto.getGender());
+            user.setRole(Role.USER);
+
+            userRepository.save(user);
+
+        }
         PatientRecord record = new PatientRecord();
 
+        record.setName(prescriptionDto.getFirstname()+" "+prescriptionDto.getLastname());
+        record.setAge(prescriptionDto.getAge());
         record.setUsername(prescriptionDto.getNic());
         record .setType(prescriptionDto.getType());
         record .setDisease(prescriptionDto.getDisease());
@@ -62,7 +81,9 @@ public class PatientRecordService {
         List<PrescriptionDto> returnList = new ArrayList<>();
         for (PatientRecord pt : ptList){
             PrescriptionDto prescriptionDto = new PrescriptionDto();
-            prescriptionDto.setAuth(pt.getUsername());
+            prescriptionDto.setName(pt.getName());
+            prescriptionDto.setAge(pt.getAge());
+            prescriptionDto.setNic(pt.getUsername());
             prescriptionDto.setDisease(pt.getDisease());
             prescriptionDto.setType(pt.getType());
 
@@ -89,11 +110,12 @@ public class PatientRecordService {
     public List<PrescriptionDto> getPrescriptionsByNic(String nic){
 
         List<PatientRecord> ptList = recordRepository.findAllByTypeAndUsername("PRES" ,nic);
-        System.out.println(ptList.toString());
         List<PrescriptionDto> returnList = new ArrayList<>();
         for (PatientRecord pt : ptList){
             PrescriptionDto prescriptionDto = new PrescriptionDto();
-            prescriptionDto.setAuth(pt.getUsername());
+            prescriptionDto.setName(pt.getName());
+            prescriptionDto.setAge(pt.getAge());
+            prescriptionDto.setNic(pt.getUsername());
             prescriptionDto.setDisease(pt.getDisease());
             prescriptionDto.setType(pt.getType());
 

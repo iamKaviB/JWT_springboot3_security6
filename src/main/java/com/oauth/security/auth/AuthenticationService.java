@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -23,6 +25,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        String type = "";
+        if(request.getRole().equals("ADMIN"))
+        {
+            type= String.valueOf(Role.ADMIN);
+        }else if(request.getRole().equals("USER")){
+            type= String.valueOf(Role.USER);
+        }
+
+
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -31,7 +42,7 @@ public class AuthenticationService {
                 .nic(request.getNic())
                 .gender(request.getGender())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(Role.valueOf(type))
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -61,6 +72,8 @@ public class AuthenticationService {
     public User findByNic(String username) {
         return repository.findByNic(username);
     }
+
+    public List<User>  findAllByRole (String role) {return  repository.findByRole(Role.valueOf(role));}
 
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()

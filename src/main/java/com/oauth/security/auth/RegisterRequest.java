@@ -18,4 +18,5 @@ public class  RegisterRequest {
   private String gender;
   private String nic;
   private int age;
+  private String role;
 }

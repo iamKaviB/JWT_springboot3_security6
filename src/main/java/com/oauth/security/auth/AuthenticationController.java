@@ -5,6 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -45,6 +48,29 @@ public class AuthenticationController {
 
       return ResponseEntity.ok(request);
   }
+
+
+  @GetMapping("/patient/{role}")
+  public ResponseEntity<List<RegisterRequest>> findByRole(
+          @PathVariable("role") String role
+  ) {
+    List<User> user = service.findAllByRole(role);
+    List <RegisterRequest> r = new ArrayList<>();
+    for(User u: user)
+    {
+      RegisterRequest request = new RegisterRequest();
+      request.setFirstname(u.getFirstname());
+      request.setLastname(u.getLastname());
+      request.setEmail(u.getEmail());
+      request.setAge(u.getAge());
+      request.setGender(u.getGender());
+      request.setNic(u.getNic());
+      r.add(request);
+    }
+
+    return ResponseEntity.ok(r);
+  }
+
 
 
 }

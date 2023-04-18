@@ -18,6 +18,8 @@ public class PatientRecord {
     @Id
     @GeneratedValue
     private Integer id;
+    private String name;
+    private Integer age;
     private String username;
     private String type;
     private String disease;

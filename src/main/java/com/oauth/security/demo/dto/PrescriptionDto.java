@@ -16,4 +16,10 @@ public class PrescriptionDto {
     private String disease;
     private String type ="PRES";
     private List<PresDetailDto> list;
+    private String firstname;
+    private String lastname;
+    private String gender;
+    private int age;
+    private String name;
+
 }
