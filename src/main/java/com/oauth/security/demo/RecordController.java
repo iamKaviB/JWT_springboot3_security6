@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/auth/record")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class RecordController {
 
   private final PatientRecordService service;
