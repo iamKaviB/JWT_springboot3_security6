@@ -1,5 +1,6 @@
 package com.oauth.security.user;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,5 +9,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   Optional<User> findByEmail(String email);
 
   User findByNic(String nic);
+  List<User> findByRole(Role role);
+
+  boolean existsByNic(String nic);
 
 }

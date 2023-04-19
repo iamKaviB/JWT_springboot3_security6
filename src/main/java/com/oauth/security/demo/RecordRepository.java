@@ -9,4 +9,5 @@ import java.util.List;
 public interface RecordRepository extends JpaRepository<PatientRecord,Integer> {
 
     List<PatientRecord> findAllByType(String type);
+    List<PatientRecord> findAllByTypeAndUsername(String type, String nic);
 }
